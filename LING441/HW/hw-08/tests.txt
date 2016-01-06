@@ -1,0 +1,14 @@
+from hw8 import *
+gd = GDev('g2')
+gd.name
+gd.load_grammar()
+gd.grammar
+gd.reload()
+gd.parser
+gd.parser.grammar() is gd.grammar
+print(gd.parse('Mary walked the dog'))
+gd.load_sents()
+gd.sents[2]
+gd.parses()
+gd.regress()
+gd()

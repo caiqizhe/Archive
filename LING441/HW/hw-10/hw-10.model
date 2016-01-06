@@ -1,0 +1,14 @@
+ALLEY => a
+BONNIE => b
+FIDO => f
+MAX => m
+SPOT => s
+ANIMAL => {a,b,f,m,s}
+DOG => {f,b}
+CAT => {m,a}
+RED => {m,f}
+BLUE => {s}
+ORANGE => {a}
+BARKER => {s,f,b}
+CHASES => {(f,m), (m,s)}
+LIKES => {(s,m), (f,s), (b,s), (s,s)}

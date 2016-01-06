@@ -1,0 +1,203 @@
+% start Root
+
+Root -> S
+Root -> Aux[f=?f,s=?v] NP[f=?f] VP[f=?v]
+Root -> WhNP Aux[f=?f,s=?v] NP[f=?f] VP[f=?v]/np
+Root -> WhPP[f=?p] Aux[f=?f,s=?v] NP[f=?f] VP[f=?v]/?p
+
+S -> NP[f=?f] VP[f=?f]
+S/?g -> NP[f=?f] VP[f=?f]/?g
+
+SC -> Comp S
+SC/?g -> Comp S/?g
+RC -> RelPron VP
+RC -> RelPron S/np
+
+NP/np ->
+
+NP[f=sg] -> PropN
+NP[f=?f] -> Det[f=?f] N2[f=?f]
+N2[f=?f] -> NumP[f=?f] N1[f=?f]
+N2[f=?f] -> N1[f=?f]
+NumP[f=?f] -> Seq Num[f=?f] | Num[f=?f]
+N1[f=?f] -> Adj N1[f=?f] | NC[f=?f]
+NC[f=?f] -> N[f=sg] N[f=?f] | N[f=?f]
+
+NP[f=?f] -> NP[f=?f] PP | NP[f=?f] RC
+
+NP[f=pl] -> NP 'and' NP
+
+PP -> P NP
+PP/?g -> P NP/?g
+PP[f=?p]/?p ->
+
+VP[f=?f] -> Aux[f=?f,s=?v] VP[f=?v]
+VP[f=?f] -> V[f=?f,-t,s=0]
+VP[f=?f] -> V[f=?f,+t,s=0] NP
+VP[f=?f] -> V[f=?f,-t,s=?p] PP[f=?p]
+VP[f=?f] -> V[f=?f,+t,s=?p] NP PP[f=?p]
+VP[f=?f] -> V[f=?f,-t,s=?c] SC[f=?c]
+VP[f=?f] -> V[f=?f,+t,s=?c] NP SC[f=?c]
+
+
+#-------------------------------------------------------------------------------
+# Lexicon
+#
+
+PropN -> 'Fido' | 'Gertrude' | 'Hans' | 'Alice' | 'Bob' | 'Frodo' | 'Sylvester'
+
+Det -> 'the' | 'her'
+Det[f=sg] -> 'a' | 'an' | 'this' | 'that'
+Det[f=pl] -> 'these' | 'those'
+Seq -> 'first' | 'last' | 'next' | 'previous'
+Num[f=sg] -> 'one'
+Num[f=pl] -> 'two' | 'six' | 'several'
+
+Adj -> 'blue' | 'bluer' | 'bluest'
+Adj -> 'bright' | 'brighter' | 'brightest'
+Adj -> 'fat' | 'fatter' | 'fattest'
+Adj -> 'red' | 'redder' | 'reddest'
+Adj -> 'twinkling'
+Adj -> 'white' | 'whiter' | 'whitest'
+
+N[f=sg] -> 'aardvark'
+N[f=pl] -> 'aardvarks'
+N[f=sg] -> 'apple'
+N[f=pl] -> 'apples'
+N[f=sg] -> 'book'
+N[f=pl] -> 'books'
+N[f=sg] -> 'box'
+N[f=pl] -> 'boxes'
+N[f=sg] -> 'butter'
+N[f=sg] -> 'cat'
+N[f=pl] -> 'cats'
+N[f=sg] -> 'chair'
+N[f=pl] -> 'chairs'
+N[f=sg] -> 'desk'
+N[f=pl] -> 'desks'
+N[f=sg] -> 'dog'
+N[f=pl] -> 'dogs'
+N[f=sg] -> 'garden'
+N[f=pl] -> 'gardens'
+N[f=sg] -> 'kitchen'
+N[f=pl] -> 'kitchens'
+N[f=sg] -> 'mat'
+N[f=pl] -> 'mats'
+N[f=sg] -> 'park'
+N[f=pl] -> 'parks'
+N[f=sg] -> 'rabbit'
+N[f=pl] -> 'rabbits'
+N[f=sg] -> 'shelf'
+N[f=pl] -> 'shelves'
+N[f=sg] -> 'table'
+N[f=pl] -> 'tables'
+N[f=sg] -> 'tree'
+N[f=pl] -> 'trees'
+N[f=sg] -> 'water'
+N[f=sg] -> 'wine'
+
+P[f=at] -> 'at'
+P[f=loc] -> 'on'
+P[f=loc] -> 'in'
+P[f=loc] -> 'under'
+P[f=loc] -> 'through'
+P[f=to] -> 'to'
+P[f=about] -> 'about'
+P[f=from] -> 'from'
+P[f=of] -> 'of'
+
+Aux[f=sg,s=base] -> 'will'
+Aux[f=pl,s=base] -> 'will'
+
+Aux[f=sg,s=en] -> 'has'
+Aux[f=pl,s=en] -> 'have'
+Aux[f=sg,s=en] -> 'had'
+Aux[f=pl,s=en] -> 'had'
+Aux[f=base,s=en] -> 'have'
+
+Aux[f=sg,s=ing] -> 'is'
+Aux[f=pl,s=ing] -> 'are'
+Aux[f=sg,s=ing] -> 'was'
+Aux[f=pl,s=ing] -> 'were'
+Aux[f=base,s=ing] -> 'be'
+Aux[f=en,s=ing] -> 'been'
+
+Aux[f=sg,s=enp] -> 'is'
+Aux[f=pl,s=enp] -> 'are'
+Aux[f=sg,s=enp] -> 'was'
+Aux[f=pl,s=enp] -> 'were'
+Aux[f=base,s=enp] -> 'be'
+Aux[f=en,s=enp] -> 'been'
+Aux[f=ing,s=enp] -> 'being'
+
+V[f=sg,-t,s=0] -> 'barked'
+V[f=pl,-t,s=0] -> 'barked'
+V[f=en,-t,s=0] -> 'barked'
+V[f=sg,-t,s=0] -> 'barks'
+V[f=pl,-t,s=0] -> 'bark'
+V[f=base,-t,s=0] -> 'bark'
+V[f=ing,-t,s=0] -> 'barking'
+
+V[f=sg,-t,s=0] -> 'meowed'
+V[f=pl,-t,s=0] -> 'meowed'
+V[f=en,-t,s=0] -> 'meowed'
+V[f=sg,-t,s=0] -> 'meows'
+V[f=pl,-t,s=0] -> 'meow'
+V[f=base,-t,s=0] -> 'meow'
+V[f=ing,-t,s=0] -> 'meowing'
+
+V[f=sg,-t,s=0] -> 'sleeps'
+V[f=pl,-t,s=0] -> 'sleep'
+V[f=sg,-t,s=0] -> 'slept'
+V[f=pl,-t,s=0] -> 'slept'
+V[f=en,-t,s=0] -> 'slept'
+V[f=base,-t,s=0] -> 'sleep'
+V[f=ing,-t,s=0] -> 'sleeping'
+
+V[f=sg,+t,s=0] -> 'chases'
+V[f=pl,+t,s=0] -> 'chase'
+V[f=base,+t,s=0] -> 'chase'
+V[f=sg,+t,s=0] -> 'chased'
+V[f=pl,+t,s=0] -> 'chased'
+V[f=en,+t,s=0] -> 'chased'
+V[f=ing,+t,s=0] -> 'chasing'
+
+V[f=sg,+t,s=0] -> 'likes'
+V[f=pl,+t,s=0] -> 'like'
+V[f=base,+t,s=0] -> 'like'
+V[f=sg,+t,s=0] -> 'liked'
+V[f=pl,+t,s=0] -> 'liked'
+V[f=en,+t,s=0] -> 'liked'
+V[f=ing,+t,s=0] -> 'liking'
+
+V[f=sg,+t,s=loc] -> 'puts'
+V[f=pl,+t,s=loc] -> 'put'
+V[f=base,+t,s=loc] -> 'put'
+V[f=sg,+t,s=loc] -> 'put'
+V[f=pl,+t,s=loc] -> 'put'
+V[f=en,+t,s=loc] -> 'put'
+V[f=ing,+t,s=loc] -> 'putting'
+
+V[f=sg,-t,s=that] -> 'thinks'
+V[f=pl,-t,s=that] -> 'think'
+V[f=base,-t,s=that] -> 'think'
+V[f=sg,-t,s=that] -> 'thought'
+V[f=pl,-t,s=that] -> 'thought'
+V[f=en,-t,s=that] -> 'thought'
+V[f=ing,-t,s=that] -> 'thinking'
+
+V[f=sg,-t,s=Q] -> 'wonders'
+V[f=pl,-t,s=Q] -> 'wonder'
+V[f=base,-t,s=Q] -> 'wonder'
+V[f=sg,-t,s=Q] -> 'wondered'
+V[f=pl,-t,s=Q] -> 'wondered'
+V[f=en,-t,s=Q] -> 'wondered'
+V[f=ing,-t,s=Q] -> 'wondering'
+
+V[f=sg] -> 'knows'
+V[f=pl] -> 'know'
+V[f=base] -> 'know'
+V[f=sg] -> 'knew'
+V[f=pl] -> 'knew'
+V[f=en] -> 'known'
+V[f=ing] -> 'knowing'

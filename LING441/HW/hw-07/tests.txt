@@ -1,0 +1,20 @@
+from hmm import *
+from hw7 import *
+tagger = Tagger(example_model)
+tagger.reset(['dogs','bark', 'often'])
+tagger.build_graph()
+print_graph( tagger.nodes)
+(n1,n2,n3) = tagger.nodes[1:4]
+n1.score = .9
+n2.score = .1
+tagger.edge_score(n1,n3)
+tagger.edge_score(n2,n3)
+tagger.score_node(n3)
+n3.score
+n3.best_prev
+tagger.score_graph()
+print_graph(tagger.nodes)
+tagger.unwind()
+tagger.__call__(['dogs','bark', 'often'])
+tagger(['dogs','bark', 'often'])
+
