@@ -1,0 +1,21 @@
+
+#wrapper{
+    margin-top: 10%;
+    min-height: 50%;
+    background: url('../img/uc.png') no-repeat center 0;
+    padding-top: 10%;
+}
+
+#content{
+    text-align: center;
+    color: red;
+    display: block;
+}
+
+h3{
+    font-family: GessoRegular;
+    font-weight: normal;
+    font-size: 100%;
+    padding: 2% 0 10% 2%;
+    width: 100%;
+}
