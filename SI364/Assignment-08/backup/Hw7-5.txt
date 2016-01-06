@@ -1,0 +1,5 @@
+SELECT A.sID, S.sName, S.GPA, C.cName, C.enrollment
+FROM College C, Student S, Apply A
+WHERE C.cName = A.cName
+AND S.sID = A.sID
+ORDER BY S.GPA DESC, S.sName;

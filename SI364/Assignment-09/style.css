@@ -1,0 +1,28 @@
+th{
+    text-align: center;
+	background-color: #2170f4;
+	padding:2%;
+}
+
+.sName{
+	text-align: left;
+}
+
+.sID{
+	text-align: left;
+}
+
+.cName{
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.major{
+	text-transform: uppercase;
+	text-align: center;
+}
+
+table{
+    margin: 0 auto;
+    background-color: #cccccc;
+}

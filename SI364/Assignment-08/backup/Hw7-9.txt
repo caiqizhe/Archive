@@ -1,0 +1,3 @@
+SELECT S.sID, S.sNAme, S.GPA, S.sizeHS, GPA*(sizeHS/1000.0) AS scaledGPA
+FROM Student S
+LIMIT 5;

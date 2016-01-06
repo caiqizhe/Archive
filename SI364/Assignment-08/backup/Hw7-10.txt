@@ -1,0 +1,5 @@
+SELECT S.sName AS Name, count(*) AS Applications
+FROM Student S, College C, Apply A
+WHERE S.sID = A.sID
+AND C.cName = A.cName
+GROUP BY S.sName;

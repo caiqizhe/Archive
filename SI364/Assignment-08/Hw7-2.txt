@@ -1,0 +1,13 @@
+Amy	CS
+Amy	EE
+Bob	biology
+Craig	bioengineering
+Craig	CS
+Craig	EE
+Fay	history
+Helen	CS
+Irene	CS
+Irene	biology
+Irene	marine biology
+Jay	history
+Jay	psychology

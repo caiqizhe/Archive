@@ -1,0 +1,6 @@
+123	Amy	3.9
+456	Doris	3.9
+678	Fay	3.8
+987	Helen	3.7
+876	Irene	3.9
+654	Amy	3.9

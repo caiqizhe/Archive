@@ -1,0 +1,8 @@
+Amy	4
+Bob	1
+Craig	4
+Craig	1
+Fay	1
+Jay	3
+Irene	3
+Helen	2

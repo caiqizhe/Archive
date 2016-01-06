@@ -1,0 +1,3 @@
+SELECT sID, major
+FROM Apply
+WHERE major LIKE '%bio%';

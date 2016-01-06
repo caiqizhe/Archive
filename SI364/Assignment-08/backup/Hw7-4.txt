@@ -1,0 +1,5 @@
+SELECT DISTINCT College.cName
+FROM College, Apply
+WHERE College.cName = Apply.cName
+AND Apply.major = "CS"
+AND College.enrollment > 20000;

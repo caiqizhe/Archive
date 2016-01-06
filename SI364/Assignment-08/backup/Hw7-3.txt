@@ -1,0 +1,6 @@
+SELECT S.sName, S.GPA, A.decision
+FROM Student S, Apply A
+WHERE S.sID = A.sID
+AND S.sizeHS < 1000
+AND A.cName = "Stanford"
+AND A.major = "CS";

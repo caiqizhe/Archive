@@ -1,0 +1,3 @@
+SELECT DISTINCT S.sName, A.major
+FROM Student S, Apply A
+WHERE S.sID = A.sID;
