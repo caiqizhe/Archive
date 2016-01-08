@@ -1,0 +1,81 @@
+# Project 3 Part 1
+
+1.   We realize that all most of the traffic coming in have a MAC address of 
+     00:26:08:e5:66:07. The logical guess is that the IP with the corresponding MAC
+     address is the gateway address. Hence, the local address is in the pool of 
+     IP address starting with 10.0.2.x. Possibly with a /24 subnet mask.
+
+     00:26:08:e5:66:07 10.0.2.1 (default gateway)
+     04:0c:ce:d8:0f:fa 10.0.2.2
+     8c:a9:82:50:f0:a6 10.0.2.3
+
+2.   By doing a address resolution under "Statistic", we found that there are traffics going to lb.wordpress.com, ctools.umich.edu, yf1.yahoo.com, guardian.co.uk, facebook.com and etc. Therefore, an educated guess is that this is a LAN with a local network address 10.0.2.0/24.
+
+3a.  At time 83.602865 host with ip address 10.0.2.2 initiated an ftp connection to 194.109.21.66 which is mapped to dl.xs4all.nl. 
+
+3b.  The connection is most likely to be an active FTP. At Time 125.434155 a PORT command PORT 10,0,2,2,199,51 was issued to server. This only happens in active FTP. In passive FTP, a PASV will be issued to server which is not the case here.
+
+3c.  By using filter: tcp.port == 443 && ip.src == 10.0.2.0/24, we can easily get all local hosts who initiate outbound ftp connection. The FTP login credential is in plain text. Although no successful login - 530 response -, but user information such as USER := laticia.langhans at time 115.175217 and Pass:= goblue3859 at time 121.727321 is captured in plain text. This is vulnerable to attacker.
+
+3d.  SFTP (SSH File Transfer Protocol) OR FTPS (FTP over SSL/TLS) 
+
+4a.  By using filter: tcp.port == 443 && ip.src == 10.0.2.0/24, we can get all local hosts who initiate outbound https connection. By sorting the packets by info column, we go to line where info == client hello. From the first instance, at time 177.781222 the host 10.0.2.2 initiated a https request to 141.211.13.253. Using nslookup, we get weblogin.umich.edu. Similar for tfbnw.net, fbcdn.net, akamaitechnologies.com and etc. 
+
+4b.  No. There is no way to hide destination IP address in the TCP connection. Even if domain name is hidden in the packet, we still can do a DNS reverse lookup.
+
+4c.  At time 171.720176 we have 36 Cipher Suites.
+     Cipher Suite: TLS_EMPTY_RENEGOTIATION_INFO_SCSV (0x00ff)
+     Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA (0xc00a)
+     Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xc014)
+     Cipher Suite: TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA (0x0088)
+     Cipher Suite: TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA (0x0087)
+     Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA (0x0039)
+     Cipher Suite: TLS_DHE_DSS_WITH_AES_256_CBC_SHA (0x0038)
+     Cipher Suite: TLS_ECDH_RSA_WITH_AES_256_CBC_SHA (0xc00f)
+     Cipher Suite: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA (0xc005)
+     Cipher Suite: TLS_RSA_WITH_CAMELLIA_256_CBC_SHA (0x0084)
+     Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)
+     Cipher Suite: TLS_ECDHE_ECDSA_WITH_RC4_128_SHA (0xc007)
+     Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA (0xc009)
+     Cipher Suite: TLS_ECDHE_RSA_WITH_RC4_128_SHA (0xc011)
+     Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xc013)
+     Cipher Suite: TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA (0x0045)
+     Cipher Suite: TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA (0x0044)
+     Cipher Suite: TLS_DHE_RSA_WITH_AES_128_CBC_SHA (0x0033)
+     Cipher Suite: TLS_DHE_DSS_WITH_AES_128_CBC_SHA (0x0032)
+     Cipher Suite: TLS_ECDH_RSA_WITH_RC4_128_SHA (0xc00c)
+     Cipher Suite: TLS_ECDH_RSA_WITH_AES_128_CBC_SHA (0xc00e)
+     Cipher Suite: TLS_ECDH_ECDSA_WITH_RC4_128_SHA (0xc002)
+     Cipher Suite: TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA (0xc004)
+     Cipher Suite: TLS_RSA_WITH_SEED_CBC_SHA (0x0096)
+     Cipher Suite: TLS_RSA_WITH_CAMELLIA_128_CBC_SHA (0x0041)
+     Cipher Suite: TLS_RSA_WITH_RC4_128_SHA (0x0005)
+     Cipher Suite: TLS_RSA_WITH_RC4_128_MD5 (0x0004)
+     Cipher Suite: TLS_RSA_WITH_AES_128_CBC_SHA (0x002f)
+     Cipher Suite: TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA (0xc008)
+     Cipher Suite: TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA (0xc012)
+     Cipher Suite: TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA (0x0016)
+     Cipher Suite: TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA (0x0013)
+     Cipher Suite: TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA (0xc00d)
+     Cipher Suite: TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA (0xc003)
+     Cipher Suite: SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA (0xfeff)
+     Cipher Suite: TLS_RSA_WITH_3DES_EDE_CBC_SHA (0x000a)
+
+4d.  Cipher Suite: TLS_RSA_WITH_RC4_128_MD5 posts an security threat because MD5 is known broken cipher. 
+
+4e.  At time 177.781222, 10.0.2.2 sends Client Hello to 141.211.13.253. At time 177.782583 141.211.13.253 replys 10.0.2.2 with Server Hello and choose to have TLS_DHE_RSA_WITH_AES_256_CBC_SHA (0x0039)
+
+5a.  After user is logged in to Facebook, other requests are send using HTTP GET request, such as at time 61.298224.
+
+5b.  Since packet could be captured, the request in the payload is in clear text and hence it could be modified by the attack to impersonate as the victim. 
+
+5c.  Always send request over HTTPS instead of over HTTP. According to https://www.facebook.com/notes/facebook-engineering/secure-browsing-by-default/10151590414803920, now facebook uses https by default for all Facebook users since 2013. This packet is captured in Oct 8, 2012. So, the problem should be solved by now.
+
+5d.  Under "Statistics" tab, we have "Show address resolution". From the information showed in the "Address Resolution" has IP address starts 69.171.0.0/16. Hence, we set filter to ip.addr == 69.171.0.0./16. There are two local hosts, namely 10.0.2.2 and 10.0.2.3 sends requests to Facebook.
+     At the following time instance, following requests were done:
+     62.611388 User went to Facebook home page 
+     67.691020 User searched "zakir durum" in the search bar
+     71.541802 User went to zakir durum's profile page.
+     75.268398 User started to Facebook messaging to "zakir durum"
+     75.633373 User uploaded an attachment to message.
+     76.660953 User checked notifications

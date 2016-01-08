@@ -1,0 +1,96 @@
+# Problem 1
+
+1a. TCP connection is encrypted with the self-signed certificate.
+    Since a passive eavesdropper can only listen to the traffics in the
+    channel without doing any modification or alteration, the content 
+    is still protected by the public key infrastructure. Eavesdropper 
+    cannot interpret the traffic.
+
+1b. The attacker can generate his/her own fake certification. During the 
+    handshake step, this fake certification is send to the victim instead
+    of the original self-signed certification. Then, public key encryption
+    scheme will fail under man-in-the-middle attack. The encrypted content
+    can be decrypted by the attacker.
+
+1c. i. victim normally can't tell whether he receives a fake certification
+    or a self-signed certification as the browser will always prompt a 
+    warning message for untrusted certificate. On contrast, the  original 
+    design allows for a verified certificate signed by CA. However, the 
+    original design has a flaw if the attacker compromises the client's 
+    browser and steals the session cookie. The attacker is able to go to 
+    any other pages he wants. This design in (i) doesn’t do anything better 
+    than the original design although each page is encrypted and protected
+    against passive eavedropping.
+    ii. Unless the CA is hacked, otherwise, this design in (ii) is better as 
+    each page is reloaded and encrypted with a different verified certificate. 
+    Even when attack is able to compromise a page, but he still cannot see the 
+    content of other pages as they are encrypted using different certificate.
+    Same to part i, if the session cookie is compromised all other pages are 
+    accessible to the attacker. 
+
+# Problem 2
+
+2a. Since the username of the victim is known, a Cross-Site Request Forgery
+    (CSRF) attack can be used in place by setting the username to victim's
+    username. If the username does appear in the database, 
+    request.parameters['user'] will return true and account will be deleted. 
+
+2b. A fake link can be generated and send to the victim. There is a hidden
+    iframe embedded in the page. In this frame, a delete post request is
+    sent and the cookie in the victim’s browser is sent together with the 
+    request. The server will treat this request is initiated from the victim.
+
+2c. A script can be embedded in the request. In this script, a hidden frame
+    can be created to mimic the function of a browser. Upon connection to
+    MyPlace with the username within the frame, a cookie will be created 
+    for the session and stored in the hidden frame. The next thing the script
+    will do is to extract the cookie information associated with the cookie
+    parameter 'login_cookie'. When both username and cookie information are
+    obtained, a XSS attack can be implemented.  
+
+# Problem 3
+
+3a. The random number generated using canary stack guard scheme is placed in
+    the stack memory before any control data or return address.
+    So, in the basic form of stack-based buffer overflow, data is injected 
+    exceeding the boundary and then overflowed till the return address so that
+    when return address is loaded malicious part of code is loaded instead 
+    of normal return address. If canary is implemented, the overflow will
+    alter the canary value. Thus, when expected value is not met, a potential
+    buffer overflow attack is captured.
+
+
+3b. If canary value is chosen at the compile time, this implies that the 
+    canary value is hard coded to the program. gdb can be used to reverse
+    engineer the canary value by exploiting the binary executable file.
+    0 is a particularly good choice because most of the buffer overflow 
+    attack in C is by exploiting string or strcpy(). By putting default 
+    canary value to 0, the attacker has to write a null character to the
+    memory which is a terminating char for C string. Hence, make the 
+    exploit useless because strcpy() stop at null character.
+
+3c. 1. In x86 architect, noop (no operation) is treated as “\x90”. So, when
+    program is executed, canary part is ignored because it’s simply treated
+    as a noop operation. Hence, canary value comparison is bypassed.
+    2. Another attack is the Structured Exception Handling (SEH). We can 
+    buffer overflow the exception handling part. And we can cause an exception
+    and program will go to the exception handling part which redirect to 
+    intended malicious part of code. Hence, completely skips the canary check.
+
+# Problem 4
+
+4a. By the definition of a malware in the lecture notes is that set of 
+    instructions that run on victim's computer and do something attacker
+    wants to 1. Congest network 2. Attack other systems and etc.
+    Even the intension of creating a defensive worm to attack the malicious 
+    worm is good, the program itself is still doing self-replicating and
+    spreading to all other infected hosts. It still causes the mentioned 2 
+    points in the definition. Hence, it is ethically unacceptable.
+
+4b. I believe that under certain circumstances the counter attack is justified.
+    However, The counterattacks may promote an escalating series of attacks
+    where innocent people may become the victim. However, under certain extreme
+    circumstances, active response seems to be necessary because legal system 
+    is too slow to respond to attack and identify the attackers. To reduce 
+    further real-time damage, especially to distributed attack, such active 
+    response is crucial.

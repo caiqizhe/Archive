@@ -1,0 +1,4 @@
+Name: proj2_xtra_cr3dit
+Version: MySQL 5.0.11
+Tables: SECRETTABLE, foo, inject3_users
+Secret: hunter2

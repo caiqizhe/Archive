@@ -1,0 +1,56 @@
+                 Autopsy Inode Report
+
+----------------------------------------------------------------------
+                    GENERAL INFORMATION
+
+Inode: 218148
+Pointed to by file(s):
+  /3/home/nefarious/.mozilla/firefox/4vda6zgy.default/places.sqlite
+MD5 of istat output: 4f800ae9340972ff4751136c200a40c6
+
+Image: '/Users/kuzijie/Desktop/evidence/proj5/host1/images/forensics_release_w15.raw'
+Offset: 996093 to 8385929
+File System Type: ext
+
+Date Generated: Sat Apr 18 16:11:29 2015
+Investigator: ZJ
+
+----------------------------------------------------------------------
+                   META DATA INFORMATION
+
+inode: 218148
+Allocated
+Group: 27
+Generation Id: 3661135192
+uid / gid: 1000 / 1000
+mode: rrw-r--r--
+size: 245760
+num of links: 1
+
+Inode Times:
+Accessed:	2009-11-30 12:14:00 (EST)
+File Modified:	2009-11-30 12:13:58 (EST)
+Inode Modified:	2009-11-30 12:13:58 (EST)
+
+Direct Blocks:
+915369 915370 915371 915372 915373 915374 915375 915376 
+915385 915386 915387 915388 915390 915391 915392 915393 
+915394 915395 915396 915397 915398 915399 915400 915401 
+915402 915403 915404 915405 915406 915407 915408 915409 
+915410 915411 915413 915414 915415 915417 915418 915419 
+915420 915421 915422 918383 918969 918970 918971 919544 
+919545 919546 919562 921160 921161 921162 921163 921164 
+922284 16154 16155 16156 
+
+Indirect Blocks:
+915389 
+
+File Type: SQLite 3.x database, user version 6
+
+----------------------------------------------------------------------
+                   VERSION INFORMATION
+
+Autopsy Version: 2.24
+The Sleuth Kit Version: 4.1.3
+
+

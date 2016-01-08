@@ -1,0 +1,23 @@
+cd /et
+cd /etc
+grep -R Setting *
+grep -R "Setting up" *
+vim /etc/rc.d/rc.sysinit 
+vi /etc/rc.d/rc.sysinit
+cd /etc/rd.
+cd /etc/rc.d
+ls
+vi rc.network
+ls /root
+ls ~
+locate get_external_ip.sh
+cd /
+find -name get_external_ip.sh
+cd
+ls
+cp /initrd/mnt/dev_ro2/root/*.sh ~
+cp /initrd/mnt/dev_ro2/root/*.sh /
+vi rc.network
+vi /etc/rc.d/rc.net
+vi /etc/rc.d/rc.network
+ls /

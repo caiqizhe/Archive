@@ -1,0 +1,17 @@
+} def
+
+dup /a eq{
+/Courier findfont 
+24 scalefont setfont
+100 200 moveto
+(kuzijie guess 0) show
+showpage
+
+}
+{
+/Courier findfont 
+24 scalefont setfont
+100 200 moveto
+(kuzijie guess 1) show
+showpage
+}

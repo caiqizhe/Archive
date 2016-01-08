@@ -1,0 +1,36 @@
+# Problem 1
+
+1a. All other campus sites' applications do not touch the end user's login credentials and hence less exposures. This improves the security as traditional authentication architecture requires login for each services. Attackers have more chances to intercept login info. Single Sign-On Service, SSO, provides centralized management making the attack surface much smaller.
+
+1b. The disadvantage of the centralized SSO service is that if the token of user login is compromised, the attacker has the access to any other sites which the user has access to. 
+
+1c. Since attacker has the full control over Site A, a JavaScript could be implemented or embedded in the login HTML page to get user's username, u. Once digital signature is received from SSO, attacker can reuse the ( u, sign(u) ) to impersonate the user to other campus resources.
+
+1d. To prevent the impersonation attack, the SSO server could return sign(u||SiteX) where SiteX is the site ID. Each site could be assigned with an ID. When requests are received by the site server, site will decrypt sign(u||SiteX) with SSO's pubic key to see if SiteX matches it's own site ID. If there's an impersonation attack in 1c, the verification will fail.
+
+1e. Mallory can send "Hi",m_1 to Bob and receive m_2, HMAC_k(m_1) from Bob. Mallory then send m_2, HMAC_k(m_1) to Alice to verify. And Alice will verify HMAC_k(m_1) and send HMAC_k(m_2) to Mallory. Mallory then sends the HMAC_k(m_2) received from Alice to Bob, Since everything will go through the verification stage, Bob will believe Mallory is a group member.
+
+1f. The flaw in part e is that when any user initiates a challenge to Bob, the request is in plaintext. Now, if the challenge message is a randomly generated large integer, N, encrypted with secret key k. When the challenge, Enc_k(N) is sent to Bob, Bob decrypts the challenge with k, and adds 1 to the randomly generated number and signs it using HMAC_k(Dec_k(Enc_k(N))+1). Bob reply Alice with his own encrypted randomly generated large integer M and HMAC_k(Dec_k(Enc_k(N))+1).  Alice verifies the signature and sends Bob HMAC_k(Dec_k(Enc_k(M))+1). Bob verifies it. Anyone manage to complete the challenge-response stage will be recognized as a member. This prevents the flaw in e, because in order to initiate the challenge, Mallory has to know two things, encryption function and a secret key k. This is almost impossible to fake one unless you are a group member.        
+
+# Problem 2
+
+2a. There are total 26 * 2 + 10 = 62 characters. This implies that worst case is 62^8 = 218,340,105,584,896 guesses. Then, the average case = 1/2 * worst case = 109,170,052,792,448 guesses. Then, given that attacker guesses 4,000,000 guesses/sec. Hence, on average it takes about 7581.25366 hours to crack a single password.  
+
+2b. From the previous part, we have on average of 7582 hours to crack a single password. Then, we need to have at least 7582 botnet in order to crack individual hashes at an average rate of one per hour.
+
+2c. sha256 output = 256 bits = 32 bytes. 8 characters = 8 bytes. For each pair we have 32 + 8 = 40 bytes. There're maximum 218,340,105,584,896 entries. Hence, total size = 218,340,105,584,896 * 40 = 62^8 * 40 bytes ~ 8734 TB.
+
+2d. Given that the password set is N. Then we have N/k columns. Given that only the first and last password is stored and each password takes exactly 8 bytes. Hence, each columns takes 16 bytes. => (N/k)*16 bytes.
+
+2e. As given in part a, N = 218,340,105,584,896 passwords. Given that k = 5000. Then we have, 218,340,105,584,896/5000 * 16 bytes = 0.6987 TB.
+
+2f. We have total N = 218,340,105,584,896. Given that the attacker can add 2 million chain elements per second. Then, N / 2,000,000 / (60*60) ~ 30,325.0147 hours
+
+2g. If a lookup table is (hash-password pair) not computed, each crack will take roughly 7582 hours on average. If a lookup table is constructed as in (c) sorted by hash. The lookup will be O(log n) using binary search. However, it's almost not possible to compute a table of 8734 TB on average. The worst case, the storage space is much more than this. With a large botnet, divide and confiqure will make the cracking feasible even without a lookup table. Compute table roughly the same time to search for password.
+
+2h. Since the server_secret is a randomly generated 32-bit secret, it's nearly impossible to construct the rainbow table. In order for the rainbow table to work, a table of combination of all possible 4-bytes server_secret concatenated with password is needed to be pre-computed before constructing a rainbow table. This makes it more time-consuming to crack a large list of password and make it infeasible to use a rainbow attack.
+
+2i. Since scenario states that the same secret is used for all passwords. A random 32bit secret could be generated for each password denoted by S. Then each password should be encrypted using SHA256( S || SHA256(password) ); The randomized salting would defend against rainbow table attack.
+
+2j. The average case = 1/2 * worst case = 109,170,052,792,448 guesses. The machine now can computer 10^9 hashes per second @ 180GHz/sec => 109,170,052,792,448/(180*10^9)/(60*60) ~ 0.1685 hours.
+

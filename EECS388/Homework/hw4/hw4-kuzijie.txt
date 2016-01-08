@@ -1,0 +1,41 @@
+# Problem 1
+
+1a. 
+1b.
+1c.
+
+# Problem 2
+
+2a. In the source code provided, The following code is written:
+    "GET {0}{1} HTTP/1.1{5}Host: {3}{5}User-Agent: {2}{5}Accept:..."
+    This is actually the HTTP v1.1 GET request with different paramenters,
+    such as delay time, protocol type, frequency and etc.
+    The idea behind this attack is that, repeated request is sent from a
+    single client or a pool of client in a high frequency. Those huge
+    amount of network traffic will flood the server buffers. As a result, 
+    LOIC achieve a DoS attack. Furthermore, since LOIC allows many hosts
+    to join the botnet, this results a Distributed DoS attack from all over 
+    the Internet.
+2b. The IRC-based "Hive Mind" mode enables a LOIC user to connect his or her
+    copy of LOIC to an IRC channel in order to receive a target and other 
+    attack parameters via an IRC topic message. Users can voluntarily give
+    up the control of their machine to a contrally controlled server.
+2c. 1. blacklist known compromized IP addresses.
+    2. filter out protocols that not needed. 
+       e.g. discard ftp request if server only hosts web service.
+    3. disable too frequent requests from a single host with the same IP.
+    4. use CAPTCHA as sort of challenge similar to client puzzles. 
+       post some sort of challenge problem to filter out hosts with wrong
+       solution or no solution. 
+2d. According to wikipedia, Operation Payback was a coordinated, decentralized
+    group of attacks on high profile opponents of Internet piracy by Internet
+    activists using the "Anonymous" moniker. 
+2e.
+2f.
+2g.
+
+Reference:
+1. http://ccis2k.org/iajit/PDF/vol.3,no.4/8-abdulmotaleb.pdf
+2. http://people.cs.pitt.edu/~mehmud/docs/abliz09tourpuzzle.pdf
+3. http://eprint.iacr.org/2010/649.pdf
+4. http://www.hashcash.org/papers/client-puzzles.pdf

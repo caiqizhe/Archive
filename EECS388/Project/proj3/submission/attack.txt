@@ -1,0 +1,74 @@
+# Project 3 Part 2
+
+1.  24:8B:24:56:90
+2.  Server IP address: 192.168.1.112
+    Host IP address: 192.168.1.139
+3.  We used "nmap -Pn -sS -O 192.168.1.112" to get a fingerprint of the system 
+    and scanned for all open ports. The following outputs are returned.
+    ==========================================================================
+    Starting Nmap 6.47 ( http://nmap.org ) at 2015-03-09 14:33 EDT
+    Nmap scan report for 192.168.1.112
+    Host is up (0.13s latency).
+    Not shown: 996 closed ports
+    PORT    STATE SERVICE
+    21/tcp  open  ftp
+    22/tcp  open  ssh
+    80/tcp  open  http
+    443/tcp open  https
+    MAC Address: 00:C0:CA:5A:03:52 (ALFA)
+    Device type: general purpose
+    Running: Linux 3.X
+    OS CPE: cpe:/o:linux:linux_kernel:3
+    OS details: Linux 3.11 - 3.14
+    Network Distance: 1 hop
+
+    OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 45.15 seconds
+    ============================================================================
+    
+    ==========================================================================
+    Starting Nmap 6.47 ( http://nmap.org ) at 2015-03-09 14:48 EDT
+    Nmap scan report for 192.168.1.139
+    Host is up (0.039s latency).
+    Not shown: 997 closed ports
+    PORT      STATE SERVICE
+    22/tcp    open  ssh
+    6666/tcp  open  irc
+    6667/tcp  open  irc
+    MAC Address: 00:21:6B:9A:69:E0 (Intel Cooperation)
+    Device type: general purpose
+    ============================================================================
+    
+    So we have tried to ssh into the server which we failed to obtain useful information.
+    We tried to compile our own ssl session key because we thought we have all the ingredients 
+    client random, server random and pre-master key. However, it turned out that we only have
+    encrypted pre-master key. Lastly, the only option left is the ftp service. It turned out 
+    that two files are availble, namely the private/public key pair.
+    Go to Edit > Preference > Protocols > SSL > Edit RSA keys list 
+    Create New > 192.168.1.112; 443; http; server-w15.key;
+    Once, it's done, all encrypted https traffic is then decrypted. 
+    Under Hypertext Transfer Protocol in the clear HTTP traffic, we see that
+    [Full request URI: http://192.168.1.112/protected/youwin.py]
+    After we go to the link we obtained the following message. 
+
+    Private key:
+    -----BEGIN RSA PRIVATE KEY-----
+    MIICWwIBAAKBgQC13l+kXf1mKZQMcqnFy8Vc815jkV98lgTsBtU2geb/jFVklXl/
+    argu/x40E371+r4bFZW3nYx/J6BNaLLsBBRluK5zCsfBk6DlFeUMRiD2olXQlGvo
+    2h0z02/DWMwj7h+VaEICtMVdfA/+JO+IVjlPk6uwq5JhX+SmzQ1gnJy+9QIDAQAB
+    AoGAK7DASTxLI7/ZUSQ6pMnPIAVXJ5RE3CkuBYWesvmCBOIxoXhHN9Tral7fYqNM
+    XMtf4CHPVc0Dc4iRegcs9IYGYAFbaTNCaQZPv8yuBliVqf4xU+x/nREwVo/sWaKV
+    V+zjsgAN5iUSkXWup2Hx/RbIMFMJ/QnFgP3RN+ooqKrWIgECQQDtIbTkZiBUH2zs
+    UVM8OsOnqzsMG+aLkYk+q3R14hYU7OkncZZj++sYwJAtntHfxEcxq/mBXFArfoS7
+    lpISbnNzAkEAxFb6RORKu3XsQMRS8oypSloo0eGLZkM3EI6PKfSMxX8twNDXtuOd
+    9gpGJsXNNuRETDzaOceVUDNO5C+8iB559wJAf7qpOmG8RjPLMxu3LvkkTJtSKfqZ
+    W1JgT+6Aw8KtTEY0bHeln2OhxeprfvdOay7Jfnr44XI9CMCUdIrtUZpG+wJAEGrV
+    cn1EYnhx0NiZtv5cCYOQdjxN07c7G39QKUnxm3IO+Vh9MSXHR5OEWimgBz7/FwDf
+    noU5zwL7TclQEnG58QJALZBBHU3Cu7Ck1KcMRr4oeUGmfernKmFsaKzWbcV5+Q4x
+    tN6uaPUvEt/2eXoXpIBAyYn3gAwm7wn2x5UKNHCxMA==
+    -----END RSA PRIVATE KEY-----
+
+4.  You win! Please submit this, along with an explanation of how you got it for part 2:
+    yey6xdm2LwgDYH1DOLvGDwcacxUrzwlth24OxOLK7zLyNGuOgTPRc2UDb4wTB8kyI7HFo/1NY+Q2eOxSkXe2juLMsQ==
+
+5.  According to https://www.law.cornell.edu/uscode/text/18/2511, in worst case the jail time is five years.

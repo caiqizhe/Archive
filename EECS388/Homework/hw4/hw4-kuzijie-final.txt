@@ -1,0 +1,84 @@
+# Problem 1
+
+1a. The only way the client could do this is by brute forcing the solution
+    since HMAC is a one-way function. Let total number of hash value has
+    total m bit. Then, we have total 2^(M-n) possible solutions. 
+    Then, we have p = 2^(m-n)/2^(m) = 2^(-n) to guess the solution right. 
+    Then, the expected number of computation is just the expected value
+    of a geometric random variable which has the expected value = 1/p.
+    Then, we would expect 2^(n) computations to get n bits. 
+1b. Let 2^(n) = 64 => n = 6. Hence, as long as n >= 6 then, it will cost
+    attacker more to attack the server. 
+1c. Case 1: suppose the server is not under attack, the server can set n to 
+    less than 6. 
+    Case 2: if the server is under attack, a process that is similar 
+    to auction could be implemented. A more challenging problem such as
+    n >> 6 (much greater than 6) will be send to client. This will require
+    much more computing power from the client. Client with more computing 
+    power will be able to complete the challenge faster, hence receive the 
+    service from server sooner.    
+    The difficulty level could be adjusted based on the workload of the server.
+    If the server is more loaded, the upcoming requests will be harder to 
+    compute.  
+
+# Problem 2
+
+2a. In the source code provided, The following code is written:
+    "GET {0}{1} HTTP/1.1{5}Host: {3}{5}User-Agent: {2}{5}Accept:..."
+    This is actually the HTTP v1.1 GET request with different paramenters,
+    such as delay time, protocol type, frequency and etc.
+    The idea behind this attack is that, repeated request is sent from a
+    single client or a pool of client in a high frequency. Those huge
+    amount of network traffic will flood the server buffers. As a result, 
+    LOIC achieve a DoS attack. Furthermore, since LOIC allows many hosts
+    to join the botnet, this results a Distributed DoS attack from all over 
+    the Internet. Stop flooding the server if try block fails and throws
+    an exception to the catch block in bw_DoWork(). 
+    The "finally{ IsFlooding=false; }" will terminate the process and back 
+    on task if the application receives responds from server again after
+    certain time intervals.
+2b. The IRC-based "Hive Mind" mode enables a LOIC user to connect his or her
+    copy of LOIC to an IRC channel in order to receive a target and other 
+    attack parameters via an IRC topic message. Users can voluntarily give
+    up the control of their machine to a centralizes controlled server.
+2c. 1. server stop responding to the request if it receives a large 
+       volume of the identical request in a short period of time.
+    2. filter out invalid requests.
+       e.g. discard ftp request if server only hosts web service.
+    3. disable too frequent requests from a single host with previously seen IP.
+    4. use CAPTCHA as sort of challenge similar to client puzzles. 
+       post some sort of challenge problem to filter out hosts with wrong
+       solution or no solution.
+    5. blacklist known compromized IP addresses.
+2d. Hactivists using the "Anonymous" moniker using modified version of LOIC attack
+    on high profile opponents of Internet privacy organizations, such as Visa, BoA,
+    Paypal.This kind of attacks are usually coordinated, planned and decentralized
+    DDoS attacks.
+2e. Christopher Wayne Cooper is one of the hactivist member of "Anonymous". 
+    He was arrested for alleged participation in a series of DDoS attacks
+    against PayPal between August 1 2010 and January 22 2011 trying to stop 
+    PayPal doing business with WikiLeaks.
+2f. Botnet is very similar to LOIC Hive Mind mode in a sense that a collection
+    of Internet-connected programs communicating with other similar programs
+    to perform tasks. The programs could be used to send spams or participate in
+    DDoS attacks.
+    However, the difference is that Botnet usually involves a pool of compromized
+    computer to perform any attacks. The compromized hosts usually perform tasks 
+    without being notified whereas in LOIC Hive Mode involves a pool of computers
+    that are voluntarily joined the IRC channel.
+2g. LOIC Hive mode is similar to a political protest that organizations like
+    "Anonymous" could organize a protest as a way of publicly making their opinions
+    heard in an attempt to influence public opinion or government policy. The LOIC
+    Hive mode is like a protest in cyber space where many hosts join the channel 
+    voluntarily. However, it is also different from a political protest because 
+    each individuals involve in a protest may express his or her individual opinion.
+    But this may not be true for LOIC Hive mode. LOIC client are controlled to join
+    the DDoS attack like in Operation Pay-back. The host running LOIC client may not
+    be aware of the abuse.  
+
+Reference:
+1. http://ccis2k.org/iajit/PDF/vol.3,no.4/8-abdulmotaleb.pdf
+2. http://people.cs.pitt.edu/~mehmud/docs/abliz09tourpuzzle.pdf
+3. http://eprint.iacr.org/2010/649.pdf
+4. http://en.wikipedia.org/wiki/Operation_Payback
+5. http://leaksource.info/category/opwcit/
